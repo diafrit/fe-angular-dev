@@ -1,0 +1,89 @@
+<mat-sidenav-container class="app-shell">
+  <mat-sidenav #menu class="app-menu" mode="over" aria-label="Attus">
+    <div class="menu-panel">
+      <header class="menu-header">
+        <div class="menu-heading">
+          <h2>Attus</h2>
+          <p>Procuradoria Digital</p>
+        </div>
+        <button
+          mat-icon-button
+          type="button"
+          class="menu-close"
+          title="Fechar"
+          aria-label="Fechar menu"
+          (click)="menu.close()"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </header>
+      <mat-nav-list class="menu-nav">
+        <a
+          mat-list-item
+          class="menu-link"
+          routerLink="/"
+          routerLinkActive="menu-link-active mdc-list-item--activated"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="menu.close()"
+        >
+          <mat-icon matListItemIcon>group</mat-icon>
+          <span matListItemTitle>Usuários</span>
+        </a>
+      </mat-nav-list>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar class="directory-toolbar">
+      <button
+        mat-icon-button
+        type="button"
+        title="Abrir menu"
+        aria-label="Abrir menu"
+        (click)="menu.toggle()"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+      <h1>Usuários</h1>
+      <mat-form-field class="search-field" appearance="outline" subscriptSizing="dynamic">
+        <mat-icon matIconPrefix>search</mat-icon>
+        <input
+          #userSearch
+          matInput
+          id="user-search"
+          type="search"
+          placeholder="Pesquisar"
+          aria-label="Pesquisar por nome ou e-mail"
+          [value]="store.name()"
+          (input)="onSearch($event)"
+        />
+        @if (store.name()) {
+          <button
+            mat-icon-button
+            matIconSuffix
+            type="button"
+            class="search-clear"
+            title="Limpar pesquisa"
+            aria-label="Limpar pesquisa"
+            (click)="clearSearch(userSearch)"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        }
+      </mat-form-field>
+      <button
+        mat-icon-button
+        class="theme-toggle"
+        type="button"
+        [attr.aria-label]="themeLabel()"
+        (click)="toggleTheme()"
+      >
+        <mat-icon>{{ theme() === 'dark' ? 'light_mode' : 'dark_mode' }}</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <main class="directory-page">
+      <router-outlet />
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

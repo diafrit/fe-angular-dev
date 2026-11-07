@@ -1,0 +1,78 @@
+<section class="user-section" aria-labelledby="registered-users">
+  @let directory = store.list();
+  <div class="section-heading">
+    <h2 id="registered-users">Usuários cadastrados</h2>
+    @if (directory.status === 'ready') {
+      <p>{{ store.total() }}</p>
+    }
+  </div>
+
+  @if (directory.status === 'loading') {
+    <div class="rise-in" aria-busy="true" aria-label="Carregando usuários">
+      <mat-progress-bar mode="indeterminate" />
+      <p class="status-copy">Carregando usuários</p>
+    </div>
+  } @else if (directory.status === 'error') {
+    <mat-card class="state-card rise-in" role="alert">
+      <mat-icon color="warn">error</mat-icon>
+      <h3>{{ directory.message }}</h3>
+      <p>Verifique a conexão e tente de novo.</p>
+      <button mat-stroked-button type="button" (click)="store.retry()">Tentar novamente</button>
+    </mat-card>
+  } @else if (store.visible().length === 0) {
+    <mat-card class="state-card rise-in">
+      <mat-icon>group</mat-icon>
+      <h3>Nenhum usuário encontrado</h3>
+      <p>Tente outro nome, outro e-mail ou cadastre um novo usuário.</p>
+    </mat-card>
+  } @else {
+    @for (page of [store.page()]; track page) {
+      <ul class="user-list">
+        @for (user of store.visible(); track user.id) {
+          <li>
+            <mat-card class="user-card">
+              <div class="user-row">
+                <span class="initials" aria-hidden="true">{{ initials(user.name) }}</span>
+                <div class="user-copy">
+                  <span class="name">{{ user.name }}</span>
+                  <span class="email">{{ user.email }}</span>
+                </div>
+                <button
+                  mat-icon-button
+                  type="button"
+                  title="Editar usuário"
+                  [attr.aria-label]="'Editar ' + user.name"
+                  (click)="openEdit(user)"
+                >
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </div>
+            </mat-card>
+          </li>
+        }
+      </ul>
+    }
+
+    @if (store.totalPages() > 1) {
+      <mat-paginator
+        [length]="store.total()"
+        [pageIndex]="store.page()"
+        [pageSize]="pageSize"
+        [hidePageSize]="true"
+        (page)="store.setPage($event.pageIndex)"
+        aria-label="Paginação"
+      />
+    }
+  }
+
+  <button
+    mat-fab
+    type="button"
+    class="add-user"
+    title="Adicionar usuário"
+    aria-label="Adicionar usuário"
+    (click)="openCreate()"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
+</section>

@@ -1,0 +1,54 @@
+.user-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: min(36rem, 100%);
+}
+
+.dialog-lead,
+.sms-note,
+.save-error {
+  margin: 0 0 0.75rem;
+}
+
+.dialog-lead {
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.sms-note {
+  color: var(--mat-sys-primary);
+}
+
+.save-error {
+  color: var(--mat-sys-error);
+}
+
+.user-form-row {
+  display: grid;
+  gap: 0 0.75rem;
+}
+
+.user-form-row .mat-mdc-form-field {
+  width: 100%;
+  min-width: 0;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.cancel-action {
+  --mat-button-filled-container-color: var(--mat-sys-surface-container-highest);
+  --mat-button-filled-label-text-color: var(--mat-sys-on-surface-variant);
+  --mat-button-filled-state-layer-color: var(--mat-sys-on-surface-variant);
+  --mat-button-filled-ripple-color: var(--mat-sys-on-surface-variant);
+}
+
+@media (min-width: 720px) {
+  .user-form-row {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.15fr) minmax(13rem, 0.95fr);
+  }
+}

@@ -1,0 +1,137 @@
+.user-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 64rem;
+  margin: 0 auto;
+}
+
+.section-heading,
+.user-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.section-heading {
+  justify-content: space-between;
+}
+
+.section-heading h2,
+.section-heading p,
+.status-copy,
+.state-card h3,
+.state-card p {
+  margin: 0;
+}
+
+.section-heading h2 {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.section-heading p,
+.status-copy,
+.state-card p,
+.email {
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.user-card,
+.state-card {
+  --mat-card-elevated-container-shape: var(--app-radius);
+  border-radius: var(--app-radius);
+  transition:
+    background-color var(--app-motion) ease,
+    color var(--app-motion) ease,
+    box-shadow var(--app-motion) ease;
+}
+
+.user-card {
+  padding: 0.75rem 0.5rem 0.75rem 1rem;
+}
+
+.user-list,
+.rise-in {
+  animation: rise-in var(--app-motion) ease;
+}
+
+.user-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.name,
+.email {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.name {
+  font-weight: 600;
+}
+
+.initials {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--mat-sys-primary-container);
+  color: var(--mat-sys-on-primary-container);
+  font-weight: 600;
+}
+
+.state-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 1.25rem;
+}
+
+.add-user.mat-mdc-fab {
+  background-color: #026e00;
+  color: #fff;
+  --mat-fab-foreground-color: #fff;
+  --mat-fab-state-layer-color: #fff;
+  --mat-fab-ripple-color: #fff;
+  --mat-fab-container-shape: 999px;
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 20;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 999px;
+}
+
+.add-user .mat-icon {
+  color: #fff;
+}
+
+@media (min-width: 640px) {
+  .user-copy {
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .email {
+    margin-left: auto;
+  }
+}

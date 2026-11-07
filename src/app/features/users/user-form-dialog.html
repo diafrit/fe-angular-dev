@@ -1,0 +1,124 @@
+<h2 mat-dialog-title>{{ editing ? 'Editar usuário' : 'Adicionar novo usuário' }}</h2>
+
+<mat-dialog-content>
+  <form class="user-form" [formGroup]="userForm" (ngSubmit)="save()" novalidate>
+    <p class="dialog-lead">
+      {{
+        editing
+          ? 'Atualize os dados de contato deste usuário.'
+          : 'O cadastro cria o acesso com os dados abaixo.'
+      }}
+    </p>
+
+    <mat-form-field appearance="outline" hideRequiredMarker>
+      <mat-label>Usuário (e-mail) *</mat-label>
+      <input matInput id="user-email" type="email" autocomplete="email" formControlName="email" />
+      <mat-error>
+        @if (userForm.controls.email.hasError('required')) {
+          Informe o e-mail.
+        } @else {
+          Informe um e-mail válido.
+        }
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" hideRequiredMarker>
+      <mat-label>Nome completo *</mat-label>
+      <input matInput id="user-name" type="text" autocomplete="name" formControlName="name" />
+      <mat-error>
+        @if (userForm.controls.name.hasError('required')) {
+          Informe o nome completo.
+        } @else {
+          Informe nome e sobrenome.
+        }
+      </mat-error>
+    </mat-form-field>
+
+    <div class="user-form-row">
+      <mat-form-field appearance="outline" hideRequiredMarker>
+        <mat-label>CPF *</mat-label>
+        <input
+          matInput
+          id="user-cpf"
+          type="text"
+          inputmode="numeric"
+          autocomplete="off"
+          formControlName="cpf"
+        />
+        <mat-error>
+          @if (userForm.controls.cpf.hasError('required')) {
+            Informe o CPF.
+          } @else {
+            Informe um CPF válido.
+          }
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" hideRequiredMarker>
+        <mat-label>Número do telefone *</mat-label>
+        <input
+          matInput
+          id="user-phone"
+          type="tel"
+          inputmode="tel"
+          autocomplete="tel"
+          formControlName="phone"
+        />
+        <mat-error>
+          @if (userForm.controls.phone.hasError('required')) {
+            Informe o telefone.
+          } @else {
+            Informe um telefone válido.
+          }
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" hideRequiredMarker floatLabel="always">
+        <mat-label>Tipo de telefone *</mat-label>
+        <mat-select id="user-phone-type" formControlName="phoneType">
+          @for (type of phoneTypes; track type.value) {
+            <mat-option [value]="type.value">{{ type.label }}</mat-option>
+          }
+        </mat-select>
+        <mat-error>
+          @if (userForm.controls.phoneType.hasError('mismatch')) {
+            O tipo não corresponde ao telefone.
+          } @else {
+            Selecione o tipo de telefone.
+          }
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    @if (!editing) {
+      <p class="sms-note">
+        O usuário receberá uma senha provisória para acesso ao sistema por SMS.
+      </p>
+    }
+
+    @if (saveError(); as message) {
+      <p class="save-error" role="alert">{{ message }}</p>
+    }
+
+    <div class="form-actions">
+      <button
+        mat-flat-button
+        type="button"
+        class="cancel-action"
+        title="Cancelar"
+        (click)="cancel()"
+      >
+        Cancelar
+      </button>
+      <button
+        mat-flat-button
+        color="primary"
+        type="submit"
+        title="Salvar"
+        [disabled]="userForm.invalid || saving()"
+      >
+        Salvar
+      </button>
+    </div>
+  </form>
+</mat-dialog-content>
